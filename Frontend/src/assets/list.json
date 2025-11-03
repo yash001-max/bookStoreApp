@@ -1,0 +1,48 @@
+[
+{
+    "id":1,
+    "name":"Story Book",
+    "title": "TaleVerse – Your World of Stories",
+    "price" : 0,
+    "category" : "Free",
+    "image":"https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/86/f7/87/86f7870c-7f27-d80c-6d15-39038eb5abd8/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg"
+
+},
+{
+    "id":2,
+    "name":"Sports Book",
+    "title": "Beyond the Finish Line",
+    "price" : 50,
+    "category" : "Sports",
+    "image":"https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1600584123i/51941855.jpg"
+
+},
+{
+    "id":3,
+    "name":"Music Book",
+    "title": "The Sound of Life",
+    "price" : 99,
+    "category" : "Song",
+    "image":"https://www.radioportal.ecatolico.com/images/stations/wssk.webp"
+
+},
+{
+    "id":4,
+    "name":"Food Book",
+    "title": "The Taste Jouney",
+    "price" : 199,
+    "category" : "Food",
+    "image":"https://images.squarespace-cdn.com/content/v1/63f68b1e8e521a2a275fde91/67d12890-edbb-4176-994b-75cec62f7c15/Taste+Journey+Logo+IG.png?format=1500w"
+
+},
+{
+    "id":5,
+    "name":"Comics Book",
+    "title": "Marvel Comics 1000",
+    "price" :299,
+    "category" : "Comics",
+    "image":"https://terrigen-cdn-dev.marvel.com/content/prod/1x/marvelcomics1000_cvr.jpg"
+
+}
+
+]

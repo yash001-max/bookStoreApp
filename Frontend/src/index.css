@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styling for a modern feel */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fafb; /* light gray background */
+  color: #111827; /* neutral text color */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Optional: Add subtle selection color */
+::selection {
+  background-color: #6366f1; /* Indigo-500 */
+  color: white;
+}
+
+/* Optional: Smooth shadow and rounded corners for cards or components */
+.card {
+  @apply rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-300;
+}
+
+/* Optional: Add a nice hover effect for buttons */
+.btn {
+  @apply bg-indigo-600 text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-700 active:scale-95;
+}
