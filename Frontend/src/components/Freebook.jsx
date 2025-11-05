@@ -1,18 +1,42 @@
-import React from "react";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import list from "../assets/list.json";
-import Cards from "./Cards";
+import React, { useState, useEffect } from "react";
 
+
+// import list from "../assets/list.json";
+import Cards from "./Cards";
+import axios from "axios";
 const Freebook = () => {
+    const[book,setBook] =useState([]);
+  
+  useEffect(()=>{
+    const getBook =async ()=>{
+      try{
+       const response =await axios.get("http://localhost:3000/book");
+       console.log(response.data);
+       const data = response.data.filter((data) => data.category === "Free");
+       setBook(data);
+      }catch(error){
+        console.log(error);
+      }
+    }
+    getBook();
+  },[])
+
+
+
+
+
+
   // ✅ Filter only free category
-  const filterData = list.filter((data) => data.category === "Free");
+  // const filterData = list.filter((data) => data.category === "Free");
 
   // ✅ Slider settings
   const settings = {
     dots: true,
-    infinite: filterData.length > 3,
+    infinite: book.length > 3,
     speed: 600,
     slidesToShow: 3,
     slidesToScroll: 3,
@@ -52,7 +76,7 @@ const Freebook = () => {
       {/* 🎓 Course Carousel */}
       <div className="mt-10 ">
         <Slider {...settings}>
-          {filterData.map((item) => (
+          {book.map((item) => (
             <div key={item.id} className="px-2">
               <Cards item={item} />
             </div>

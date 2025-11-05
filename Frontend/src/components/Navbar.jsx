@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Login from "./Login";
+import { useAuth } from "../../context/AuthProvider";
+import Logout from "./Logout";
 
 const Navbar = () => {
+  const [authUser, setAuthUser] = useAuth();
+
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
@@ -31,7 +35,7 @@ const Navbar = () => {
     <>
       <li><Link to="/">Home</Link></li>
       <li><Link to="/course">Course</Link></li>
-      <li><Link to="/contact">Contact</Link></li> {/* ✅ Linked to Contact */}
+      <li><Link to="/contact">Contact</Link></li>
       <li><Link to="/about">About</Link></li>
     </>
   );
@@ -43,7 +47,6 @@ const Navbar = () => {
       }`}
     >
       <div className="navbar max-w-screen-2xl container mx-auto md:px-20 px-4">
-        
         {/* ---------- Left Section ---------- */}
         <div className="navbar-start">
           <div className="dropdown">
@@ -117,24 +120,40 @@ const Navbar = () => {
             title="Toggle Theme"
           >
             {theme === "light" ? (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                className="w-6 h-6"
+              >
                 <path d="M21.64 13a1 1 0 0 0-1.05-.14A8.05 8.05 0 1 1 9.08 5.49a8.59 8.59 0 0 1 .25-2A10.14 10.14 0 1 0 22 14.05a1 1 0 0 0-.36-1.05Z" />
               </svg>
             ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                className="w-6 h-6"
+              >
                 <path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm0 2a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1Z" />
               </svg>
             )}
           </button>
 
-          {/* Login Button */}
-          <button
-            className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300"
-            onClick={() => document.getElementById("my_modal_2").showModal()}
-          >
-            Login
-          </button>
-          <Login />
+          {/* ✅ Auth Section (Login / Logout) */}
+          {authUser ? (
+            <Logout />
+          ) : (
+            <>
+              <button
+                className="bg-black text-white px-3 py-2 rounded-md hover:bg-slate-800 duration-300"
+                onClick={() => document.getElementById("my_modal_2").showModal()}
+              >
+                Login
+              </button>
+              <Login />
+            </>
+          )}
         </div>
       </div>
     </div>

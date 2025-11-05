@@ -44,7 +44,7 @@ const Banner = () => {
               className="w-full bg-transparent outline-none text-gray-700 dark:text-gray-200"
             />
             <button className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 py-2 rounded-md hover:scale-105 hover:shadow-lg transition duration-300">
-              Subscribe
+              Get Startedgit
             </button>
           </div>
         </div>

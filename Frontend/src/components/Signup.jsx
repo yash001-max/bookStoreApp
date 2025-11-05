@@ -1,37 +1,54 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { replace, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Login from "./Login";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Signup = () => {
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const navigate = useNavigate();
-
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // ✅ Submit handler
-  const onSubmit = (data) => {
-    console.log("✅ Signup Data:", data);
+  const onSubmit = async (data) => {
+    const userInfo = {
+      fullname: data.fullname,
+      email: data.email,
+      password: data.password,
+    };
+
+    await axios
+      .post("http://localhost:3000/user/signup", userInfo) // ✅ Fixed endpoint
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          toast.success('Signup Successfully');
+         navigate(from ,{replace:true});
+          
+        }
+        localStorage.setItem("Users",JSON.stringify(res.data.user));
+      })
+      .catch((error) => {
+        console.log(error.response?.data?.message || error.message);
+        toast.error("Error:"+ error.response.data.message);
+      });
   };
 
   return (
     <>
-      {/* ---------- Signup Page ---------- */}
       <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-[#1e1e2f] via-[#2a2a3d] to-[#1a1a28] text-white relative overflow-hidden">
-        
-        {/* ---------- Background Glow Circles ---------- */}
         <div className="absolute inset-0 -z-10">
           <div className="absolute w-72 h-72 bg-fuchsia-500/20 blur-3xl rounded-full -top-16 -left-20 animate-pulse"></div>
           <div className="absolute w-72 h-72 bg-blue-500/20 blur-3xl rounded-full bottom-0 right-0 animate-pulse"></div>
         </div>
 
-        {/* ---------- Signup Box ---------- */}
         <div className="w-[90%] max-w-md bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl p-8 relative">
-          
-          {/* ---------- Close Button ---------- */}
           <button
             onClick={() => navigate("/")}
             className="absolute top-4 right-4 text-gray-400 hover:text-fuchsia-300 transition duration-200 text-2xl font-bold"
@@ -39,7 +56,6 @@ const Signup = () => {
             &times;
           </button>
 
-          {/* ---------- Header ---------- */}
           <div className="text-center mb-6">
             <h2 className="text-3xl font-extrabold bg-gradient-to-r from-fuchsia-400 via-pink-400 to-blue-400 bg-clip-text text-transparent drop-shadow-lg">
               Create Account ✨
@@ -49,9 +65,7 @@ const Signup = () => {
             </p>
           </div>
 
-          {/* ---------- Form ---------- */}
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
-            
             {/* Full Name */}
             <div>
               <label className="text-sm font-medium text-gray-300">Full Name</label>
@@ -59,13 +73,13 @@ const Signup = () => {
                 type="text"
                 placeholder="Enter your name"
                 className={`w-full mt-1 px-4 py-2 bg-white/10 border ${
-                  errors.name ? "border-red-400" : "border-white/20"
+                  errors.fullname ? "border-red-400" : "border-white/20"
                 } rounded-xl text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-fuchsia-400 transition duration-200`}
-                {...register("name", { required: "Full Name is required" })}
+                {...register("fullname", { required: "Full Name is required" })}
               />
-              {errors.name && (
+              {errors.fullname && (
                 <span className="text-red-400 text-sm mt-1 block">
-                  {errors.name.message}
+                  {errors.fullname.message}
                 </span>
               )}
             </div>
@@ -115,7 +129,6 @@ const Signup = () => {
             </button>
           </form>
 
-          {/* ---------- Footer ---------- */}
           <div className="mt-6 text-center text-gray-400 text-sm">
             Already have an account?{" "}
             <button
@@ -126,7 +139,6 @@ const Signup = () => {
             </button>
           </div>
 
-          {/* ---------- Login Modal ---------- */}
           <Login />
         </div>
       </div>
